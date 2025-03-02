@@ -15,7 +15,7 @@ export const STATUS = {
 
 export const PRIORITY = {
     URGENT: 'Urgent',
-    HIGHT: 'High',
+    HIGH: 'High',
     MEDIUM: 'Medium',
     LOW: 'Low',
     UNKNOWN: 'Unknown',
