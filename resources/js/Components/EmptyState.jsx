@@ -7,7 +7,7 @@ export default function EmptyState
     return(
         <Link href={url} className={cn('relative block w-full rounded-lg border-2 border-dashed border-muted-foreground p-12 text-center hover:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2', className)}>
             <PiDatabase className='mx-auto h-12 text-muted-foreground' />
-            <span className="mt-2 block text-sm font-medium loading-relaxed tracking-tighter">
+            <span className="mt-2 block text-sm font-medium leading-relaxed tracking-tighter">
                 Create a new {title}
             </span>
         </Link>
