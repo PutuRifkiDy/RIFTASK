@@ -13,7 +13,7 @@ export default function GetPriorityBadge({ priority }) {
             break;
         case HIGH:
             badge = 'bg-yellow-500 hover:bg-yellow-600';
-            text = HIGH
+            text = HIGH;
             break;
         case MEDIUM:
             badge = 'bg-blue-500 hover:bg-blue-600';
