@@ -57,7 +57,11 @@ export default function Login({ status, canResetPassword }) {
                                             isFocused={true}
                                             onChange={(e) => setData('email', e.target.value)}
                                         />
-                                        <InputError message={errors.email && <InputError message={errors.email} className="mt-2" />} />
+                                        <InputError
+                                            message={
+                                                errors.email && <InputError message={errors.email} className="mt-2" />
+                                            }
+                                        />
                                     </div>
                                     <div>
                                         <div className="flex items-center justify-between">
@@ -65,7 +69,7 @@ export default function Login({ status, canResetPassword }) {
                                             {canResetPassword && (
                                                 <div className="text-sm">
                                                     <Link
-                                                        href="#"
+                                                        href={route('password.request')}
                                                         className="font-semibold text-red-500 hover:text-red-600"
                                                     >
                                                         Forgot your password?
@@ -83,8 +87,13 @@ export default function Login({ status, canResetPassword }) {
                                                 autoComplete="password"
                                                 onChange={(e) => setData('password', e.target.value)}
                                             />
-                                            <InputError message={errors.password && <InputError message={errors.password} className="mt-2" />} />
-
+                                            <InputError
+                                                message={
+                                                    errors.password && (
+                                                        <InputError message={errors.password} className="mt-2" />
+                                                    )
+                                                }
+                                            />
                                         </div>
                                     </div>
                                     <div className="mt-4 block">

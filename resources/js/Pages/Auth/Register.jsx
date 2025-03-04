@@ -28,15 +28,15 @@ export default function Register() {
     };
 
     return (
-        <GuestLayout title='Register'>
-            <div className="flex flex-col justify-center flex-1 min-h-full px-6 py-12 lg:px-8">
+        <GuestLayout title="Register">
+            <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                     <Card>
                         <CardHeader className="flex flex-col items-center justify-center">
                             <Link href="/" className="text-4xl font-black leading-relaxed tracking-tighter">
                                 Plannify<span className="text-red-500">.</span>
                             </Link>
-                            <h2 className="text-lg font-medium leading-9 tracking-tight text-left text-muted-foreground">
+                            <h2 className="text-left text-lg font-medium leading-9 tracking-tight text-muted-foreground">
                                 Create your account
                             </h2>
                         </CardHeader>
@@ -56,7 +56,11 @@ export default function Register() {
                                             isFocused={true}
                                             onChange={(e) => setData('name', e.target.value)}
                                         />
-                                        <InputError message={errors.name && <InputError message={errors.name} className="mt-2" />} />
+                                        <InputError
+                                            message={
+                                                errors.name && <InputError message={errors.name} className="mt-2" />
+                                            }
+                                        />
                                     </div>
                                     <div>
                                         <InputLabel htmlFor="email" value="Email" />
@@ -70,7 +74,11 @@ export default function Register() {
                                             isFocused={true}
                                             onChange={(e) => setData('email', e.target.value)}
                                         />
-                                        <InputError message={errors.email && <InputError message={errors.email} className="mt-2" />} />
+                                        <InputError
+                                            message={
+                                                errors.email && <InputError message={errors.email} className="mt-2" />
+                                            }
+                                        />
                                     </div>
                                     <div>
                                         <InputLabel htmlFor="password" value="Password" />
@@ -84,7 +92,13 @@ export default function Register() {
                                             isFocused={true}
                                             onChange={(e) => setData('password', e.target.value)}
                                         />
-                                        <InputError message={errors.password && <InputError message={errors.password} className="mt-2" />} />
+                                        <InputError
+                                            message={
+                                                errors.password && (
+                                                    <InputError message={errors.password} className="mt-2" />
+                                                )
+                                            }
+                                        />
                                     </div>
                                     <div>
                                         <InputLabel htmlFor="password_confirmation" value="Password Confirmation" />
@@ -98,14 +112,25 @@ export default function Register() {
                                             isFocused={true}
                                             onChange={(e) => setData('password_confirmation', e.target.value)}
                                         />
-                                        <InputError message={errors.password_confirmation && <InputError message={errors.password_confirmation} className="mt-2" />} />
+                                        <InputError
+                                            message={
+                                                errors.password_confirmation && (
+                                                    <InputError
+                                                        message={errors.password_confirmation}
+                                                        className="mt-2"
+                                                    />
+                                                )
+                                            }
+                                        />
                                     </div>
                                     <div>
-                                        <Button disabled={processing} type="submit" variant="red" className="w-full">Sign up</Button>
+                                        <Button disabled={processing} type="submit" variant="red" className="w-full">
+                                            Sign up
+                                        </Button>
                                     </div>
                                 </form>
 
-                                <p className="mt-10 text-sm text-center text-muted-foreground">
+                                <p className="mt-10 text-center text-sm text-muted-foreground">
                                     Your member?{' '}
                                     <Link
                                         href={route('login')}
@@ -117,7 +142,6 @@ export default function Register() {
                             </div>
                         </CardContent>
                     </Card>
-
                 </div>
             </div>
         </GuestLayout>
