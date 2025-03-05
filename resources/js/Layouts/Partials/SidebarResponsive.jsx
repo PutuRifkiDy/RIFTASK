@@ -103,7 +103,7 @@ export default function SidebarResponsive({ auth, url, workspaces }) {
                                         className="group flex w-full gap-x-3 rounded-md p-3 text-sm font-semibold leading-relaxed text-foreground hover:bg-gray-100"
                                     >
                                         <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-foreground bg-white text-[0.625rem] font-medium text-foreground">
-                                            {workspace.name.substring(0,1)}
+                                            {workspace.name.substring(0, 1)}
                                         </span>
                                         <span className="truncate">{workspace.name}</span>
                                     </Link>
