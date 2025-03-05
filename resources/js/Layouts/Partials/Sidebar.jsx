@@ -86,7 +86,7 @@ export default function Sidebar({ auth, url }) {
                         <div className="text-xs font-semibold uppercase leading-relaxed text-foreground">
                             Workspaces
                         </div>
-                        <Link>
+                        <Link href={route('workspaces.create')}>
                             <PiPlus className="h-6 w-6 text-foreground hover:text-red-600" />
                         </Link>
                     </div>
