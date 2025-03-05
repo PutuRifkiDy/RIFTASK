@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Workspace extends Model
 {
@@ -37,8 +38,8 @@ class Workspace extends Model
     {
         return $this->hasMany(Card::class);
     }
-    public function members(): HasMany
+    public function members(): MorphMany
     {
-        return $this->hasMany(Member::class, 'memberable');
+        return $this->morphMany(Member::class, 'memberable');
     }
 }
