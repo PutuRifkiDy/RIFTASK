@@ -1,11 +1,10 @@
-import AppLayout from "@/Layouts/AppLayout";
-import HeaderForm from '@/Components/HeaderForm';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent } from '@/Components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
+import AppLayout from '@/Layouts/AppLayout';
 import { flashMessage } from '@/lib/utils';
 import { useForm } from '@inertiajs/react';
 import { toast } from 'sonner';
@@ -84,9 +83,8 @@ export default function EditWorkspace({ workspace, page_settings, visibilities }
                                 >
                                     <SelectTrigger>
                                         <SelectValue>
-                                            {visibilities.find(
-                                                (visibility) => visibility.value == data.visibility,
-                                            )?.label ?? 'Select a Visibility'}
+                                            {visibilities.find((visibility) => visibility.value == data.visibility)
+                                                ?.label ?? 'Select a Visibility'}
                                         </SelectValue>
                                     </SelectTrigger>
                                     <SelectContent>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Member;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
 use App\Models\Workspace;
@@ -47,7 +48,10 @@ class HandleInertiaRequests extends Middleware
                 'message' => $request->session()->get('message'),
             ],
             'workspaces' => fn() => $request->user() ? WorkspaceSidebarResource::collection(
-                Workspace::query()->where('user_id', $request->user()->id)->get()
+                Member::query()
+                ->where('user_id', $request->user()->id)
+                ->whereHasMorph('memberable', Workspace::class)
+                ->get()
             ) : null,
         ];
     }

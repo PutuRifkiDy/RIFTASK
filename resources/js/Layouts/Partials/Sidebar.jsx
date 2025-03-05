@@ -94,13 +94,25 @@ export default function Sidebar({ auth, url, workspaces }) {
                         {workspaces.map((workspace, index) => (
                             <li key={index}>
                                 <Link
-                                    href={route('workspaces.show', [workspace])}
-                                    className="group flex w-full gap-x-3 rounded-md p-3 text-sm font-semibold leading-relaxed text-foreground hover:bg-gray-100"
+                                    href={route('workspaces.show', [workspace.memberable.slug])}
+                                    className={cn(
+                                        route().current('workspaces.show', [workspace.memberable.slug])
+                                            ? 'bg-red-500'
+                                            : 'text-foreground hover:bg-gray-100',
+                                        'group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-relaxed tracking-tighter',
+                                    )}
                                 >
-                                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-foreground bg-white text-[0.625rem] font-medium text-foreground">
-                                        {workspace.name.charAt(0).toUpperCase()}
+                                    <span
+                                        className={cn(
+                                            route().current('workspaces.show', [workspace.memberable.slug])
+                                                ? 'border-red-600 text-red-600'
+                                                : 'border-foreground text-foreground',
+                                            'flex h-6 w-6 shrink-0 items-center justify-center rounded-full border bg-white text-[0.675rem] font-medium',
+                                        )}
+                                    >
+                                        {workspace.memberable.name.charAt(0).toUpperCase()}
                                     </span>
-                                    <span className="truncate">{workspace.name}</span>
+                                    <span className="truncate">{workspace.memberable.name}</span>
                                 </Link>
                             </li>
                         ))}
