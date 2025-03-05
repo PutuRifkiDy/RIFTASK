@@ -7,7 +7,7 @@ import { Card, CardContent } from '@/Components/ui/card';
 import AppLayout from '@/Layouts/AppLayout';
 import { flashMessage } from '@/lib/utils';
 import { Transition } from '@headlessui/react';
-import { useForm } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
 import { AvatarImage } from '@radix-ui/react-avatar';
 import { toast } from 'sonner';
 
@@ -90,12 +90,34 @@ export default function MemberWorkspace({ action, members }) {
                                     </div>
                                 </div>
                                 <div className="ml-4 flex-shrink-0">
-                                    <Button
-                                        variant="link"
-                                        className="font-medium text-red-500 hover:text-red-600 hover:no-underline"
-                                    >
-                                        Remove
-                                    </Button>
+                                    {member.role != 'Owner' ? (
+                                        <Button
+                                            variant="link"
+                                            className="font-medium text-red-500 hover:text-red-600 hover:no-underline"
+                                            onClick={() =>
+                                                router.delete(
+                                                    route('workspaces.member_destroy', {
+                                                        workspace: member.memberable_id,
+                                                        member: member.id
+                                                    }),
+                                                    {
+                                                        preserveScroll: true,
+                                                        preserveState: true,
+                                                        onSuccess: (success) => {
+                                                            const flash = flashMessage(success);
+                                                            if (flash) toast[flash.type](flash.message);
+                                                        }
+                                                    },
+                                                )
+                                            }
+                                        >
+                                            Remove
+                                        </Button>
+                                    ) : (
+                                        <Button variant="ghost">
+                                            {member.role}
+                                        </Button>
+                                    )}
                                 </div>
                             </li>
                         ))}
