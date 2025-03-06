@@ -80,7 +80,7 @@ export default function Show({ ...props }) {
                                                     <CardTitle className="line-clamp-2 text-base leading-relaxed tracking-tighter">
                                                         <Link
                                                             href={route('cards.show', [workspace, card])}
-                                                            className="hover:text-red-50"
+                                                            className="hover:text-red-500"
                                                         >
                                                             {card.title}
                                                         </Link>
