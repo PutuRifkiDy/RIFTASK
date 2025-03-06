@@ -102,7 +102,7 @@ export default function SidebarResponsive({ auth, url, workspaces }) {
                                         href={route('workspaces.show', [workspace.memberable.slug])}
                                         className={cn(
                                             route().current('workspaces.show', [workspace.memberable.slug])
-                                                ? 'bg-red-500'
+                                                ? 'bg-indigo-600'
                                                 : 'text-foreground hover:bg-gray-100',
                                             'group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-relaxed tracking-tighter',
                                         )}

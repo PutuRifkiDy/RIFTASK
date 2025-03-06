@@ -102,11 +102,11 @@ export default function EditWorkspace({ workspace, page_settings, visibilities }
                         <Button
                             type="button"
                             variant="link"
-                            className='font-medium text-red-500 hover:text-red-600'
+                            className="font-medium text-red-500 hover:text-red-600"
                             onClick={() =>
-                                router.delete(route('workspaces.destroy',
-                                    {
-                                        workspace: workspace
+                                router.delete(
+                                    route('workspaces.destroy', {
+                                        workspace: workspace,
                                     }),
                                     {
                                         preserveScroll: true,
@@ -115,13 +115,13 @@ export default function EditWorkspace({ workspace, page_settings, visibilities }
                                             const flash = flashMessage(success);
                                             if (flash) toast[flash.type](flash.message);
                                         },
-                                    }
+                                    },
                                 )
                             }
                         >
                             Delete Workspace
                         </Button>
-                        <div className='flex gap-x-2'>
+                        <div className="flex gap-x-2">
                             <Button type="button" variant="ghost" onClick={() => reset()}>
                                 Reset
                             </Button>

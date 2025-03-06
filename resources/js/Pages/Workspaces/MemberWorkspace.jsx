@@ -98,7 +98,7 @@ export default function MemberWorkspace({ action, members }) {
                                                 router.delete(
                                                     route('workspaces.member_destroy', {
                                                         workspace: member.memberable_id,
-                                                        member: member.id
+                                                        member: member.id,
                                                     }),
                                                     {
                                                         preserveScroll: true,
@@ -106,7 +106,7 @@ export default function MemberWorkspace({ action, members }) {
                                                         onSuccess: (success) => {
                                                             const flash = flashMessage(success);
                                                             if (flash) toast[flash.type](flash.message);
-                                                        }
+                                                        },
                                                     },
                                                 )
                                             }
@@ -114,9 +114,7 @@ export default function MemberWorkspace({ action, members }) {
                                             Remove
                                         </Button>
                                     ) : (
-                                        <Button variant="ghost">
-                                            {member.role}
-                                        </Button>
+                                        <Button variant="ghost">{member.role}</Button>
                                     )}
                                 </div>
                             </li>
