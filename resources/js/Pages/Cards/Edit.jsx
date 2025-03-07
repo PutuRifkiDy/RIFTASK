@@ -1,6 +1,7 @@
 import HeaderForm from '@/Components/HeaderForm';
 import AppLayout from '@/Layouts/AppLayout';
 import UpdateCard from './UpdateCard';
+import MemberCard from './MemberCard';
 
 export default function Edit({ card, page_settings, statuses, priorities, workspace }) {
     return (
@@ -9,6 +10,10 @@ export default function Edit({ card, page_settings, statuses, priorities, worksp
                 <div className="grid grid-cols-1 gap-x-4 md:grid-cols-3">
                     <HeaderForm title={page_settings.title} subtitle={page_settings.subtitle} />
                     <UpdateCard card={card} page_settings={page_settings} statuses={statuses} priorities={priorities} />
+                </div>
+                <div className="grid grid-cols-1 gap-x-4 md:grid-cols-3 pt-10">
+                    <HeaderForm title='Members' subtitle='Please add members to the card' />
+                    <MemberCard action={route('cards.member_store', {card:card})} />
                 </div>
             </div>
         </>
