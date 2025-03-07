@@ -1,17 +1,16 @@
-import HeaderForm from '@/Components/HeaderForm';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent } from '@/Components/ui/card';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 import AppLayout from '@/Layouts/AppLayout';
 import { flashMessage } from '@/lib/utils';
 import { Transition } from '@headlessui/react';
-import { useForm } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
+import { PiPaperclip } from 'react-icons/pi';
 import { toast } from 'sonner';
 
-export default function AttachmentCard({ action }) {
+export default function AttachmentCard({ action, attachments, has_attachments }) {
     const { data, setData, post, processing, errors, recentlySuccessful } = useForm({
         file: '',
         name: '',
@@ -34,6 +33,7 @@ export default function AttachmentCard({ action }) {
             },
         });
     };
+    console.log('cek isi attachment', attachments);
     return (
         <>
             <Card className="md:col-span-2">
@@ -63,9 +63,7 @@ export default function AttachmentCard({ action }) {
                                         isFocused={true}
                                         value={data.link}
                                         onChange={onHandleChange}
-                                        onErrors={
-                                            errors.link && <InputError message={errors.link} />
-                                        }
+                                        onErrors={errors.link && <InputError message={errors.link} />}
                                     />
                                 </div>
                                 <div className="col-span-full">
@@ -93,7 +91,7 @@ export default function AttachmentCard({ action }) {
                             <Transition
                                 show={recentlySuccessful}
                                 enter="transition ease-in-out"
-                                enterForm="opacity-0"
+                                enterFrom="opacity-0"
                                 leave="transition ease-in-out"
                                 leaveTo="opacity-0"
                             >
@@ -101,6 +99,53 @@ export default function AttachmentCard({ action }) {
                             </Transition>
                         </div>
                     </form>
+                    <div className="space-y-4 pt-6">
+                        <ul role="list" className="divide-y divide-gray-100 rounded-md border border-gray-200">
+                            {attachments.map((attachment, index) => (
+                                <li
+                                    className="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-relaxed"
+                                    key={index}
+                                >
+                                    <div className="flex w-0 flex-1 items-center">
+                                        <PiPaperclip className="h-5 w-5 flex-shrink-0 text-muted-foreground" />
+                                        <div className="ml-4 flex min-w-0 flex-col">
+                                            <span className="truncate font-medium">
+                                                {attachment.name ? attachment.name : attachment.file}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className="ml-4 flex shrink-0">
+                                        {has_attachments ? (
+                                            <Button
+                                                variant="link"
+                                                className="font-medium text-red-500 hover:text-red-600 hover:no-underline"
+                                                onClick={() =>
+                                                    router.delete(
+                                                        route('cards.member_destroy', {
+                                                            card: member.memberable_id,
+                                                            member: member.id,
+                                                        }),
+                                                        {
+                                                            preserveScroll: true,
+                                                            preserveState: true,
+                                                            onSuccess: (success) => {
+                                                                const flash = flashMessage(success);
+                                                                if (flash) toast[flash.type](flash.message);
+                                                            },
+                                                        },
+                                                    )
+                                                }
+                                            >
+                                                Remove
+                                            </Button>
+                                        ) : (
+                                            'There is no attachment'
+                                        )}
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </CardContent>
             </Card>
         </>
