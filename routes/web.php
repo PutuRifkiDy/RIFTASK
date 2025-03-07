@@ -46,6 +46,7 @@ Route::controller(CardController::class)->group(function(){
 
 Route::controller(MemberCardController::class)->group(function() {
     Route::post('cards/member/{card}/store', 'member_store')->name('cards.member_store');
+    Route::delete('cards/member/{card}/destroy/{member}', 'member_destroy')->name('cards.member_destroy');
 })->middleware('auth');
 
 Route::middleware('auth')->group(function () {

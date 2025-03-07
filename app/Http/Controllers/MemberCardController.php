@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Card;
+use App\Models\Member;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -37,5 +38,14 @@ class MemberCardController extends Controller
         flashMessage('Member added successfully');
         return back();
 
+    }
+
+    public function member_destroy(Card $card, Member $member): RedirectResponse
+    {
+        $member->delete();
+
+        flashMessage('Member removed successfully');
+
+        return back();
     }
 }

@@ -98,8 +98,8 @@ export default function MemberCard({ action, members }) {
                                                 className="font-medium text-red-500 hover:text-red-600 hover:no-underline"
                                                 onClick={() =>
                                                     router.delete(
-                                                        route('workspaces.member_destroy', {
-                                                            workspace: member.memberable_id,
+                                                        route('cards.member_destroy', {
+                                                            card: member.memberable_id,
                                                             member: member.id,
                                                         }),
                                                         {
