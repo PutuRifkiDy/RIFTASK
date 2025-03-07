@@ -92,7 +92,7 @@ class CardController extends Controller
 
         flashMessage('Card information updated successfully');
 
-        return back();
+        return to_route('workspaces.show', [$workspace]);
     }
 
     public function destroy(Workspace $workspace, Card $card): RedirectResponse
