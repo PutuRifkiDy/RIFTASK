@@ -1,15 +1,16 @@
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
+import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent } from '@/Components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 import { flashMessage } from '@/lib/utils';
 import { Transition } from '@headlessui/react';
-import { useForm } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
 import { toast } from 'sonner';
 
-export default function MemberCard({ action }) {
+export default function MemberCard({ action, members }) {
     const { data, setData, post, processing, errors, recentlySuccessful } = useForm({
         email: '',
     });
@@ -71,6 +72,57 @@ export default function MemberCard({ action }) {
                             </Transition>
                         </div>
                     </form>
+                    <div className="space-y-4 pt-6">
+                        <ul role="list" className="divide-y divide-gray-100 rounded-md border border-gray-200">
+                            {members.map((member, index) => (
+                                <li
+                                    className="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-relaxed"
+                                    key={index}
+                                >
+                                    <div className="flex w-0 flex-1 items-center">
+                                        <Avatar>
+                                            <AvatarImage src={member.user.avatar} />
+                                            <AvatarFallback>{member.user.name.substring(0, 1)}</AvatarFallback>
+                                        </Avatar>
+                                        <div className="ml-4 flex min-w-0 flex-col">
+                                            <span className="truncate font-medium">{member.user.name}</span>
+                                            <span className="hidden text-muted-foreground sm:block">
+                                                {member.user.email}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className="ml-4 flex-shrink-0">
+                                        {member.role != 'Owner' ? (
+                                            <Button
+                                                variant="link"
+                                                className="font-medium text-red-500 hover:text-red-600 hover:no-underline"
+                                                onClick={() =>
+                                                    router.delete(
+                                                        route('workspaces.member_destroy', {
+                                                            workspace: member.memberable_id,
+                                                            member: member.id,
+                                                        }),
+                                                        {
+                                                            preserveScroll: true,
+                                                            preserveState: true,
+                                                            onSuccess: (success) => {
+                                                                const flash = flashMessage(success);
+                                                                if (flash) toast[flash.type](flash.message);
+                                                            },
+                                                        },
+                                                    )
+                                                }
+                                            >
+                                                Remove
+                                            </Button>
+                                        ) : (
+                                            <Button variant="ghost">{member.role}</Button>
+                                        )}
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </CardContent>
             </Card>
         </>

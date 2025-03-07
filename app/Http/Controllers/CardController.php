@@ -5,6 +5,7 @@ use App\Enums\CardPriority;
 use App\Enums\CardStatus;
 use App\Http\Requests\CardRequest;
 use App\Http\Resources\CardSingleResource;
+use App\Http\Resources\MemberResource;
 use App\Models\Card;
 use App\Models\Workspace;
 use Illuminate\Http\RedirectResponse;
@@ -43,10 +44,9 @@ class CardController extends Controller
             'priority'     => $request->priority,
         ]);
 
-
         $card->members()->create([
             'user_id' => $request->user()->id,
-            'role' => $card->user_id == $request->user()->id ? 'Owner' : 'Member',
+            'role'    => $card->user_id == $request->user()->id ? 'Owner' : 'Member',
         ]);
 
         flashMessage('Card information saved successfully');
@@ -57,9 +57,9 @@ class CardController extends Controller
     public function show(Workspace $workspace, Card $card): Response
     {
         return inertia(component: 'Cards/Show', props: [
-            'card' => fn() => new CardSingleResource($card->load(['members', 'user', 'tasks', 'attachments'])),
+            'card'          => fn()          => new CardSingleResource($card->load(['members', 'user', 'tasks', 'attachments'])),
             'page_settings' => [
-                'title' => 'Detail Card',
+                'title'    => 'Detail Card',
                 'subtitle' => 'You can see card information',
             ],
         ]);
@@ -68,16 +68,17 @@ class CardController extends Controller
     public function edit(Workspace $workspace, Card $card)
     {
         return inertia(component: 'Cards/Edit', props: [
-            'card' => fn() => new CardSingleResource($card->load(['members', 'user', 'tasks', 'attachments'])),
+            'card'          => fn()          => new CardSingleResource($card->load(['members', 'user', 'tasks', 'attachments'])),
             'page_settings' => [
-                'title' => 'Edit Card',
+                'title'    => 'Edit Card',
                 'subtitle' => 'Fill out this form to edit card',
-                'method' => 'PUT',
-                'action' => route('cards.update', [$workspace, $card])
+                'method'   => 'PUT',
+                'action'   => route('cards.update', [$workspace, $card]),
             ],
-            'statuses' => CardStatus::options(),
-            'priorities' => CardPriority::options(),
-            'workspace' => fn() => $workspace->only('slug'),
+            'statuses'      => CardStatus::options(),
+            'priorities'    => CardPriority::options(),
+            'workspace'     => fn()     => $workspace->only('slug'),
+
         ]);
     }
 
@@ -86,12 +87,12 @@ class CardController extends Controller
         $last_status = $card->status->value;
 
         $card->update([
-            'title' => $request->title,
+            'title'       => $request->title,
             'description' => $request->description,
-            'deadline' => $request->deadline,
-            'status' => $status = $request->status,
-            'priority' => $request->priority,
-            'order' => $this->ordering($workspace, $status),
+            'deadline'    => $request->deadline,
+            'status'      => $status = $request->status,
+            'priority'    => $request->priority,
+            'order'       => $this->ordering($workspace, $status),
         ]);
 
         $this->adjustOrdering($workspace, $last_status);
@@ -136,7 +137,7 @@ class CardController extends Controller
             ->where('status', $status)
             ->orderBy('order')
             ->get()
-            ->each(function ($card) use(&$order){
+            ->each(function ($card) use (&$order) {
                 $card->order = $order;
                 $card->save();
                 $order++;
