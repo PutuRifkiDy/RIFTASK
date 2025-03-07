@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MemberCardController;
@@ -48,6 +49,10 @@ Route::controller(MemberCardController::class)->group(function() {
     Route::post('cards/member/{card}/store', 'member_store')->name('cards.member_store');
     Route::delete('cards/member/{card}/destroy/{member}', 'member_destroy')->name('cards.member_destroy');
 })->middleware('auth');
+
+Route::controller(AttachmentController::class)->group(function(){
+    Route::post('cards/attachments/{card}/store', 'store')->name('attachments.store');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
