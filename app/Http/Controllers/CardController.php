@@ -78,7 +78,6 @@ class CardController extends Controller
             'statuses'      => CardStatus::options(),
             'priorities'    => CardPriority::options(),
             'workspace'     => fn()     => $workspace->only('slug'),
-
         ]);
     }
 

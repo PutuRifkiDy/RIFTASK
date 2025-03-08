@@ -23,7 +23,7 @@ export default function Edit({ card, page_settings, statuses, priorities, worksp
                 </div>
                 <div className="grid grid-cols-1 gap-x-4 md:grid-cols-3 pt-10">
                     <HeaderForm title='Tasks' subtitle='Please add tasks to the card' />
-                    <TasksCard action={route('tasks.store', [card])} />
+                    <TasksCard action={route('tasks.store', [card])} tasks={card.tasks} has_tasks={card.has_tasks}/>
                 </div>
             </div>
         </>

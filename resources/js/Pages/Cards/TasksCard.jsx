@@ -10,7 +10,7 @@ import { router, useForm } from '@inertiajs/react';
 import { PiPaperclip } from 'react-icons/pi';
 import { toast } from 'sonner';
 
-export default function TasksCard({ action }) {
+export default function TasksCard({ action, tasks, has_tasks }) {
     const { data, setData, post, processing, errors, recentlySuccessful } = useForm({
         title: '',
     });
@@ -71,9 +71,9 @@ export default function TasksCard({ action }) {
                             </Transition>
                         </div>
                     </form>
-                    {/* <div className="space-y-4 pt-6">
+                    <div className="space-y-4 pt-6">
                         <ul role="list" className="divide-y divide-gray-100 rounded-md border border-gray-200">
-                            {attachments.map((attachment, index) => (
+                            {tasks.map((task, index) => (
                                 <li
                                     className="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-relaxed"
                                     key={index}
@@ -82,12 +82,12 @@ export default function TasksCard({ action }) {
                                         <PiPaperclip className="h-5 w-5 flex-shrink-0 text-muted-foreground" />
                                         <div className="ml-4 flex min-w-0 flex-col">
                                             <span className="truncate font-medium">
-                                                {attachment.name ? attachment.name : attachment.file}
+                                                {task.title}
                                             </span>
                                         </div>
                                     </div>
                                     <div className="ml-4 flex shrink-0">
-                                        {has_attachments ? (
+                                        {has_tasks ? (
                                             <Button
                                                 variant="link"
                                                 className="font-medium text-red-500 hover:text-red-600 hover:no-underline"
@@ -108,16 +108,16 @@ export default function TasksCard({ action }) {
                                                     )
                                                 }
                                             >
-                                                Remove
+                                                Delete
                                             </Button>
                                         ) : (
-                                            'There is no attachment'
+                                            'There is no tasks'
                                         )}
                                     </div>
                                 </li>
                             ))}
                         </ul>
-                    </div> */}
+                    </div>
                 </CardContent>
             </Card>
         </>
