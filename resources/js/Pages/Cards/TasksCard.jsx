@@ -9,6 +9,7 @@ import { Transition } from '@headlessui/react';
 import { router, useForm } from '@inertiajs/react';
 import { PiPaperclip, PiSquaresFour } from 'react-icons/pi';
 import { toast } from 'sonner';
+import TaskListCard from './TaskListCard';
 
 export default function TasksCard({ action, tasks, has_tasks }) {
     const { data, setData, post, processing, errors, recentlySuccessful } = useForm({
@@ -39,7 +40,7 @@ export default function TasksCard({ action, tasks, has_tasks }) {
                         <div className="py-6">
                             <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                 <div className="col-span-full">
-                                    <InputLabel htmlFor="title" value="Titile" />
+                                    <InputLabel htmlFor="title" value="Title" />
                                     <TextInput
                                         type="text"
                                         id="title"
@@ -71,51 +72,7 @@ export default function TasksCard({ action, tasks, has_tasks }) {
                             </Transition>
                         </div>
                     </form>
-                    <div className="space-y-4 pt-6">
-                        <ul role="list" className="divide-y divide-gray-100 rounded-md border border-gray-200">
-                            {tasks.filter((task) => task.parent_id == null).map((task, index) => (
-                                <li
-                                    className="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-relaxed"
-                                    key={index}
-                                >
-                                    <div className="flex w-0 flex-1 items-center">
-                                        <PiSquaresFour className="h-5 w-5 flex-shrink-0 text-muted-foreground" />
-                                        <div className="ml-4 flex min-w-0 flex-col">
-                                            <span className="truncate font-medium">{task.title}</span>
-                                        </div>
-                                    </div>
-                                    <div className="ml-4 flex shrink-0">
-                                        {has_tasks ? (
-                                            <Button
-                                                variant="link"
-                                                className="font-medium text-red-500 hover:text-red-600 hover:no-underline"
-                                                onClick={() =>
-                                                    router.delete(
-                                                        route('tasks.destroy', {
-                                                            card: task.card_id,
-                                                            task: task.id,
-                                                        }),
-                                                        {
-                                                            preserveScroll: true,
-                                                            preserveState: true,
-                                                            onSuccess: (success) => {
-                                                                const flash = flashMessage(success);
-                                                                if (flash) toast[flash.type](flash.message);
-                                                            },
-                                                        },
-                                                    )
-                                                }
-                                            >
-                                                Delete
-                                            </Button>
-                                        ) : (
-                                            'There is no tasks'
-                                        )}
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                    <TaskListCard tasks={tasks} />
                 </CardContent>
             </Card>
         </>

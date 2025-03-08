@@ -17,10 +17,11 @@ class TaskResource extends JsonResource
         return [
             'id' => $this->id,
             'card_id' => $this->card_id,
+            'user_id' => $this->user_id,
             'title' => $this->title,
             'is_completed' => $this->is_completed,
-            'parrent_id' => $this->parrent_id,
-            'created_at' => $this->created_at->format('d M Y'),
+            'parent_id' => $this->parent_id,
+            'children' => self::collection($this->children),
         ];
     }
 }

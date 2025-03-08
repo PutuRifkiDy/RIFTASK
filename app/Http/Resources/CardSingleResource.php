@@ -4,6 +4,8 @@ namespace App\Http\Resources;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Http\Resources\TaskResource;
+use App\Http\Resources\MemberResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CardSingleResource extends JsonResource
@@ -33,7 +35,7 @@ class CardSingleResource extends JsonResource
             'attachments' => $this->attachments,
             'has_attachments' => $this->attachments()->exists(),
             'tasks' => TaskResource::collection($this->tasks),
-            'has_tasks' => $this->tasks()->exists(),
+            'has_task' => $this->tasks()->exists(),
         ];
     }
 }
