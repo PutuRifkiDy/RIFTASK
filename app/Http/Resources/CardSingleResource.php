@@ -32,7 +32,7 @@ class CardSingleResource extends JsonResource
             'members_count' => $this->members_count,
             'attachments' => $this->attachments,
             'has_attachments' => $this->attachments()->exists(),
-            'tasks' => $this->tasks,
+            'tasks' => TaskResource::collection($this->tasks),
             'has_tasks' => $this->tasks()->exists(),
         ];
     }

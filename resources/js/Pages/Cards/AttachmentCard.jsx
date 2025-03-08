@@ -136,7 +136,7 @@ export default function AttachmentCard({ action, attachments, has_attachments })
                                                     )
                                                 }
                                             >
-                                                Remove
+                                                Delete
                                             </Button>
                                         ) : (
                                             'There is no attachment'

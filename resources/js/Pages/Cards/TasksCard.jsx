@@ -7,7 +7,7 @@ import AppLayout from '@/Layouts/AppLayout';
 import { flashMessage } from '@/lib/utils';
 import { Transition } from '@headlessui/react';
 import { router, useForm } from '@inertiajs/react';
-import { PiPaperclip } from 'react-icons/pi';
+import { PiPaperclip, PiSquaresFour } from 'react-icons/pi';
 import { toast } from 'sonner';
 
 export default function TasksCard({ action, tasks, has_tasks }) {
@@ -73,13 +73,13 @@ export default function TasksCard({ action, tasks, has_tasks }) {
                     </form>
                     <div className="space-y-4 pt-6">
                         <ul role="list" className="divide-y divide-gray-100 rounded-md border border-gray-200">
-                            {tasks.map((task, index) => (
+                            {tasks.filter((task) => task.parent_id == null).map((task, index) => (
                                 <li
                                     className="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-relaxed"
                                     key={index}
                                 >
                                     <div className="flex w-0 flex-1 items-center">
-                                        <PiPaperclip className="h-5 w-5 flex-shrink-0 text-muted-foreground" />
+                                        <PiSquaresFour className="h-5 w-5 flex-shrink-0 text-muted-foreground" />
                                         <div className="ml-4 flex min-w-0 flex-col">
                                             <span className="truncate font-medium">{task.title}</span>
                                         </div>
