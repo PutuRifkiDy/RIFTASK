@@ -121,9 +121,9 @@ export default function AttachmentCard({ action, attachments, has_attachments })
                                                 className="font-medium text-red-500 hover:text-red-600 hover:no-underline"
                                                 onClick={() =>
                                                     router.delete(
-                                                        route('cards.member_destroy', {
-                                                            card: member.memberable_id,
-                                                            member: member.id,
+                                                        route('attachments.destroy', {
+                                                            card: attachment.card_id,
+                                                            attachment: attachment.id,
                                                         }),
                                                         {
                                                             preserveScroll: true,

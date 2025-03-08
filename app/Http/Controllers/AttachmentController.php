@@ -25,4 +25,14 @@ class AttachmentController extends Controller
 
         return back();
     }
+
+    public function destroy(Card $card, Attachment $attachment): RedirectResponse
+    {
+        $this->delete_file($attachment, 'file');
+        $attachment->delete();
+
+        flashMessage('Attachment deleted successfully');
+
+        return back();
+    }
 }
