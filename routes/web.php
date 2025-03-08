@@ -58,6 +58,7 @@ Route::controller(AttachmentController::class)->group(function(){
 
 Route::controller(TaskController::class)->group(function(){
     Route::post('cards/tasks/{card}/store', 'store')->name('tasks.store');
+    Route::delete('cards/tasks/{card}/destroy/{task}', 'destroy')->name('tasks.destroy');
 });
 
 Route::middleware('auth')->group(function () {

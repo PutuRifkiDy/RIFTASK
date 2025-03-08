@@ -81,9 +81,7 @@ export default function TasksCard({ action, tasks, has_tasks }) {
                                     <div className="flex w-0 flex-1 items-center">
                                         <PiPaperclip className="h-5 w-5 flex-shrink-0 text-muted-foreground" />
                                         <div className="ml-4 flex min-w-0 flex-col">
-                                            <span className="truncate font-medium">
-                                                {task.title}
-                                            </span>
+                                            <span className="truncate font-medium">{task.title}</span>
                                         </div>
                                     </div>
                                     <div className="ml-4 flex shrink-0">
@@ -93,9 +91,9 @@ export default function TasksCard({ action, tasks, has_tasks }) {
                                                 className="font-medium text-red-500 hover:text-red-600 hover:no-underline"
                                                 onClick={() =>
                                                     router.delete(
-                                                        route('attachments.destroy', {
-                                                            card: attachment.card_id,
-                                                            attachment: attachment.id,
+                                                        route('tasks.destroy', {
+                                                            card: task.card_id,
+                                                            task: task.id,
                                                         }),
                                                         {
                                                             preserveScroll: true,
