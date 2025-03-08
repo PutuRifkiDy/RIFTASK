@@ -3,6 +3,7 @@ import AppLayout from '@/Layouts/AppLayout';
 import UpdateCard from './UpdateCard';
 import MemberCard from './MemberCard';
 import AttachmentCard from './AttachmentCard';
+import TasksCard from './TasksCard';
 
 export default function Edit({ card, page_settings, statuses, priorities, workspace }) {
     return (
@@ -19,6 +20,10 @@ export default function Edit({ card, page_settings, statuses, priorities, worksp
                 <div className="grid grid-cols-1 gap-x-4 md:grid-cols-3 pt-10">
                     <HeaderForm title='Attachments' subtitle='Please add attachments to the card' />
                     <AttachmentCard action={route('attachments.store', [card])} attachments={card.attachments} has_attachments={card.has_attachments}/>
+                </div>
+                <div className="grid grid-cols-1 gap-x-4 md:grid-cols-3 pt-10">
+                    <HeaderForm title='Tasks' subtitle='Please add tasks to the card' />
+                    <TasksCard action={route('tasks.store', [card])} />
                 </div>
             </div>
         </>
