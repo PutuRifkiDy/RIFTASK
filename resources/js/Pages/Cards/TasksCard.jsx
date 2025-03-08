@@ -6,8 +6,7 @@ import { Card, CardContent } from '@/Components/ui/card';
 import AppLayout from '@/Layouts/AppLayout';
 import { flashMessage } from '@/lib/utils';
 import { Transition } from '@headlessui/react';
-import { router, useForm } from '@inertiajs/react';
-import { PiPaperclip, PiSquaresFour } from 'react-icons/pi';
+import { useForm } from '@inertiajs/react';
 import { toast } from 'sonner';
 import TaskListCard from './TaskListCard';
 
