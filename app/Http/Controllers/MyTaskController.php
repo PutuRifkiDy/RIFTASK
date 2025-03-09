@@ -15,13 +15,19 @@ class MyTaskController extends Controller
      */
     public function __invoke(Request $request): Response
     {
-        $task = Member::query()
+        $tasks = Member::query()
             ->where('members.user_id', request()->user()->id)
             ->whereHasMorph('memberable', Card::class)
-            ->get();
+            ->paginate(10);
 
         return inertia(component: 'Task/Index', props: [
-            'tasks' => fn() => MyTaskResource::collection($task),
+            'tasks' => fn() => MyTaskResource::collection($tasks)->additional(
+                [
+                    'meta' => [
+                        'has_page' => $tasks->hasPages(),
+                    ]
+                ]
+            ),
             'page_settings' => [
                 'title' => 'My Task',
                 'subtitle' => 'A list of all the task in your platform',
