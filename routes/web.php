@@ -71,7 +71,7 @@ Route::controller(UserController::class)->group(function(){
     Route::get('users', 'index')->name('users.index');
     Route::get('users/create', 'create')->name('users.create');
     Route::post('users/create', 'store')->name('users.store');
-    Route::get('users/create', 'edit')->name('users.edit');
+    Route::get('users/edit', 'edit')->name('users.edit');
     Route::put('users/edit/{user}', 'update')->name('users.update');
     Route::delete('users/destroy/{user}', 'destroy')->name('users.destroy');
 })->middleware('auth');

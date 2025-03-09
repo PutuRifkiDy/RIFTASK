@@ -112,7 +112,7 @@ export default function Show({ ...props }) {
                                                                 <ActionDialog
                                                                     trigger={
                                                                         <DropdownMenuItem
-                                                                            onSelect={(e) => e.preventDefault()}
+                                                                        onSelect={(e) => e.preventDefault()}
                                                                         >
                                                                             Delete
                                                                         </DropdownMenuItem>

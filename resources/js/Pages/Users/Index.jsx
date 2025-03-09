@@ -18,6 +18,7 @@ import {
     PiArrowsDownUp,
     PiDotsThreeOutlineVerticalFill,
     PiPaperPlane,
+    PiPlusCircle,
     PiTrashBold,
 } from 'react-icons/pi';
 
@@ -43,7 +44,7 @@ export default function Index({ page_settings, ...props }) {
     return (
         <>
             <Header title={page_settings.title} subtitle={page_settings.subtitle} />
-            <div className="my-4 flex flex-col justify-between space-y-4 sm:flex-row sm:space-x-4 sm:space-y-8">
+            <div className="my-4 flex flex-col justify-between space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0 items-center">
                 <div className="flex w-full flex-col gap-4 sm:flex-row">
                     <Input
                         className="w-full sm:w-1/4"
@@ -68,6 +69,13 @@ export default function Index({ page_settings, ...props }) {
                         Clear
                     </Button>
                 </div>
+                <Button
+                 variant="red" asChild>
+                    <Link href={route('users.create')}>
+                        <PiPlusCircle className="mr-2 h-6 w-6" />
+                        Create
+                    </Link>
+                </Button>
             </div>
             <Card>
                 <CardContent>
