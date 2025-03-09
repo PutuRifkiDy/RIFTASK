@@ -31,7 +31,7 @@ export default function Sidebar({ auth, url, workspaces }) {
                         </li>
                         <li>
                             <Link
-                                href=""
+                                href={route('users.index')}
                                 className={cn(
                                     url.startsWith('/users')
                                         ? 'bg-indigo-600 text-white'
@@ -45,7 +45,7 @@ export default function Sidebar({ auth, url, workspaces }) {
                                         'shrink-6 h-6 w-6',
                                     )}
                                 />
-                                People
+                                Users
                             </Link>
                         </li>
                         <li>
@@ -126,7 +126,7 @@ export default function Sidebar({ auth, url, workspaces }) {
                     >
                         <Avatar>
                             <AvatarImage src={auth.avatar} alt={auth.name} />
-                            <AvatarFallback>{auth.name.substring(0,1)}</AvatarFallback>
+                            <AvatarFallback>{auth.name.substring(0, 1)}</AvatarFallback>
                         </Avatar>
                         <span>{auth.name}</span>
                     </Link>

@@ -55,7 +55,9 @@ export default function DeleteUserForm({ className = '' }) {
                 </p>
             </header>
 
-            <Button variant="red_real"onClick={confirmUserDeletion}>Delete Account</Button>
+            <Button variant="red_real" onClick={confirmUserDeletion}>
+                Delete Account
+            </Button>
 
             <Modal show={confirmingUserDeletion} onClose={closeModal}>
                 <form onSubmit={deleteUser} className="p-6">
@@ -85,7 +87,9 @@ export default function DeleteUserForm({ className = '' }) {
                     </div>
 
                     <div className="mt-6 flex justify-end">
-                        <Button variant="red_real" onClick={closeModal}>Cancel</Button>
+                        <Button variant="red_real" onClick={closeModal}>
+                            Cancel
+                        </Button>
 
                         <Button variant="red" className="ms-3" disabled={processing}>
                             Delete Account

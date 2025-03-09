@@ -103,7 +103,7 @@ export default function AppLayout({ children, title }) {
                         <span className="sr-only">Your profile</span>
                         <Avatar>
                             <AvatarImage src={auth.avatar} alt={auth.name} />
-                            <AvatarFallback>{auth.name.substring(0,1)}</AvatarFallback>
+                            <AvatarFallback>{auth.name.substring(0, 1)}</AvatarFallback>
                         </Avatar>
                     </Link>
                 </div>

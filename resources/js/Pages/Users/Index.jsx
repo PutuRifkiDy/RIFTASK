@@ -1,8 +1,9 @@
-import GetStatusBadge from '@/Components/GetStatusBadge';
+import { ActionDialog } from '@/Components/ActionDialog';
 import Header from '@/Components/Header';
+import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent, CardFooter } from '@/Components/ui/card';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem } from '@/Components/ui/dropdown-menu';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem } from '@/Components/ui/dropdown-menu';
 import { Input } from '@/Components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 import { useFilter } from '@/Hooks/UseFilter';
@@ -10,16 +11,25 @@ import AppLayout from '@/Layouts/AppLayout';
 import { Link } from '@inertiajs/react';
 import { DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu';
 import { useState } from 'react';
-import { PiArrowLeft, PiArrowRight, PiArrowsDownUp, PiDotsThreeOutlineVerticalFill } from 'react-icons/pi';
+import {
+    PiArrowLeft,
+    PiArrowRight,
+    PiArrowsClockwise,
+    PiArrowsDownUp,
+    PiDotsThreeOutlineVerticalFill,
+    PiPaperPlane,
+    PiTrashBold,
+} from 'react-icons/pi';
 
 export default function Index({ page_settings, ...props }) {
-    const { data: tasks, meta, links } = props.tasks;
+    const { data: users, meta, links } = props.users;
     const [params, setParams] = useState(props.state);
+    console.log('Cek isi user', users);
 
     useFilter({
-        route: route('mytasks.index'),
+        route: route('users.index'),
         values: params,
-        only: ['tasks'],
+        only: ['users'],
     });
 
     const onSortable = (field) => {
@@ -53,6 +63,10 @@ export default function Index({ page_settings, ...props }) {
                             ))}
                         </SelectContent>
                     </Select>
+                    <Button variant="outline" onClick={() => setParams(props.state)}>
+                        <PiArrowsClockwise className="mr-2 h-5 w-5" />
+                        Clear
+                    </Button>
                 </div>
             </div>
             <Card>
@@ -70,9 +84,9 @@ export default function Index({ page_settings, ...props }) {
                                                 <Button
                                                     variant="ghost"
                                                     className="group inline-flex"
-                                                    onClick={() => onSortable('title')}
+                                                    onClick={() => onSortable('name')}
                                                 >
-                                                    Title
+                                                    Name
                                                     <span className="ml-2 flex-none rounded text-foreground">
                                                         <PiArrowsDownUp className="h-5 w-5" />
                                                     </span>
@@ -85,13 +99,34 @@ export default function Index({ page_settings, ...props }) {
                                                 <Button
                                                     variant="ghost"
                                                     className="group inline-flex"
-                                                    onClick={() => onSortable('status')}
+                                                    onClick={() => onSortable('username')}
                                                 >
-                                                    Status
+                                                    Username
                                                     <span className="ml-2 flex-none rounded text-foreground">
                                                         <PiArrowsDownUp className="h-5 w-5" />
                                                     </span>
                                                 </Button>
+                                            </th>
+                                            <th
+                                                className="5 foont-semibold px-2 py-3 text-left text-sm text-foreground"
+                                                scope="col"
+                                            >
+                                                <Button
+                                                    variant="ghost"
+                                                    className="group inline-flex"
+                                                    onClick={() => onSortable('email')}
+                                                >
+                                                    Email
+                                                    <span className="ml-2 flex-none rounded text-foreground">
+                                                        <PiArrowsDownUp className="h-5 w-5" />
+                                                    </span>
+                                                </Button>
+                                            </th>
+                                            <th
+                                                className="5 foont-semibold px-2 py-3 text-left text-sm text-foreground"
+                                                scope="col"
+                                            >
+                                                Avatar
                                             </th>
                                             <th
                                                 className="5 foont-semibold px-2 py-3 text-left text-sm text-foreground"
@@ -112,21 +147,35 @@ export default function Index({ page_settings, ...props }) {
                                                 className="5 foont-semibold px-2 py-3 text-left text-sm text-foreground"
                                                 scope="col"
                                             >
-                                                <span className="sr-only">Action</span>
+                                                <span className="not-sr-only">Action</span>
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {tasks.map((task, index) => (
+                                        {users.map((user, index) => (
                                             <tr key={index}>
                                                 <td className="whitespace-nowrap px-6 py-8 text-sm font-medium text-foreground">
-                                                    {task.memberable.title}
+                                                    {user.name}
                                                 </td>
                                                 <td className="whitespace-nowrap px-6 py-8 text-sm font-medium text-foreground">
-                                                    <GetStatusBadge status={task.memberable.status} />
+                                                    {user.username ?? '-'}
                                                 </td>
                                                 <td className="whitespace-nowrap px-6 py-8 text-sm font-medium text-foreground">
-                                                    {task.memberable.created_at}
+                                                    {user.email}
+                                                </td>
+                                                <td className="whitespace-nowrap px-6 py-8 text-sm font-medium text-foreground">
+                                                    <Avatar>
+                                                        {user.avatar ? (
+                                                            <AvatarImage src={user.avatar} alt={user.name} />
+                                                        ) : (
+                                                            <AvatarFallback>{user.name.substring(0, 1)}</AvatarFallback>
+                                                        )}
+
+                                                        {/* <AvatarFallback>{user.name.substring(0, 1)}</AvatarFallback> */}
+                                                    </Avatar>
+                                                </td>
+                                                <td className="whitespace-nowrap px-6 py-8 text-sm font-medium text-foreground">
+                                                    {user.created_at ?? '-'}
                                                 </td>
                                                 <td className="relative space-x-4 whitespace-nowrap px-6 py-8 text-right text-sm">
                                                     <div className="flex justify-end">
@@ -136,8 +185,26 @@ export default function Index({ page_settings, ...props }) {
                                                             </DropdownMenuTrigger>
                                                             <DropdownMenuContent align="end" className="w-48">
                                                                 <DropdownMenuItem asChild>
-                                                                    <Link href={task.memberable.detail}>Detail</Link>
+                                                                    <Link href={route('users.edit', [user])}>
+                                                                        <PiPaperPlane className="W-4 h-4 text-indigo-600" />
+                                                                        Detail
+                                                                    </Link>
                                                                 </DropdownMenuItem>
+                                                                <DropdownMenuGroup>
+                                                                    <ActionDialog
+                                                                        trigger={
+                                                                            <DropdownMenuItem
+                                                                                onSelect={(e) => e.preventDefault()}
+                                                                            >
+                                                                                <PiTrashBold className="W-4 h-4 text-red-600" />{' '}
+                                                                                Delete
+                                                                            </DropdownMenuItem>
+                                                                        }
+                                                                        title="Delete People"
+                                                                        description="Are you sure you want to delete this user?"
+                                                                        action={() => console.log('delete pople')}
+                                                                    />
+                                                                </DropdownMenuGroup>
                                                             </DropdownMenuContent>
                                                         </DropdownMenu>
                                                     </div>

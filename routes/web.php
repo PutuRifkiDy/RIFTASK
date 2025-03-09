@@ -7,6 +7,7 @@ use App\Http\Controllers\MemberCardController;
 use App\Http\Controllers\MyTaskController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkspaceController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -55,7 +56,7 @@ Route::controller(MemberCardController::class)->group(function() {
 Route::controller(AttachmentController::class)->group(function(){
     Route::post('cards/attachments/{card}/store', 'store')->name('attachments.store');
     Route::delete('cards/attachments/{card}/destroy/{attachment}', 'destroy')->name('attachments.destroy');
-});
+})->middleware('auth');
 
 Route::controller(TaskController::class)->group(function(){
     Route::post('cards/tasks/{card}/store', 'store')->name('tasks.store');
@@ -63,9 +64,17 @@ Route::controller(TaskController::class)->group(function(){
 
     Route::post('cards/tasks/{card}/{task}/item', 'item')->name('tasks.item');
     Route::put('cards/tasks/{card}/{task}/completed', 'completed')->name('tasks.completed');
-});
+})->middleware('auth');
 
 Route::get('my-tasks', MyTaskController::class)->name('mytasks.index');
+Route::controller(UserController::class)->group(function(){
+    Route::get('users', 'index')->name('users.index');
+    Route::get('users/create', 'create')->name('users.create');
+    Route::post('users/create', 'store')->name('users.store');
+    Route::get('users/create', 'edit')->name('users.edit');
+    Route::put('users/edit/{user}', 'update')->name('users.update');
+    Route::delete('users/destroy/{user}', 'destroy')->name('users.destroy');
+})->middleware('auth');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

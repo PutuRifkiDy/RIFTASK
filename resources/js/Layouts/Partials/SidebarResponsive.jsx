@@ -36,7 +36,7 @@ export default function SidebarResponsive({ auth, url, workspaces }) {
                             </li>
                             <li>
                                 <Link
-                                    href="#"
+                                    href={route('users.index')}
                                     className={cn(
                                         url.startsWith('/users')
                                             ? 'bg-indigo-600 text-white'
@@ -110,7 +110,7 @@ export default function SidebarResponsive({ auth, url, workspaces }) {
                                         <span
                                             className={cn(
                                                 route().current('workspaces.show', [workspace.memberable.slug])
-                                                    ? 'border-red-600 text-red-600'
+                                                    ? 'border-indigo-600 text-indigo-600'
                                                     : 'border-foreground text-foreground',
                                                 'flex h-6 w-6 shrink-0 items-center justify-center rounded-full border bg-white text-[0.675rem] font-medium',
                                             )}

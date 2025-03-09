@@ -1,7 +1,7 @@
+import AppLayout from '@/Layouts/AppLayout';
 import DeleteUserForm from './Partials/DeleteUserForm';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
-import AppLayout from '@/Layouts/AppLayout';
 
 export default function Edit({ mustVerifyEmail, status }) {
     return (
@@ -31,4 +31,4 @@ export default function Edit({ mustVerifyEmail, status }) {
     );
 }
 
-Edit.layout = (page) => <AppLayout children={page} title="Profile" />
+Edit.layout = (page) => <AppLayout children={page} title="Profile" />;
