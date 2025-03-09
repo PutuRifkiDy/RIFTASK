@@ -66,7 +66,7 @@ class UserController extends Controller
             'username' => $request->username,
             'password' => Hash::make($request->password),
             'avatar' => $this->upload_file($request, 'avatar', 'users'),
-        ]);
+        ])->assignRole('Member');
 
         flashMessage('User created successfully');
 

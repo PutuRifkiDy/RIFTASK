@@ -66,7 +66,7 @@ Route::controller(TaskController::class)->group(function(){
     Route::put('cards/tasks/{card}/{task}/completed', 'completed')->name('tasks.completed');
 })->middleware('auth');
 
-Route::get('my-tasks', MyTaskController::class)->name('mytasks.index');
+Route::get('my-tasks', MyTaskController::class)->name('mytasks.index')->middleware('auth');
 Route::controller(UserController::class)->group(function(){
     Route::get('users', 'index')->name('users.index');
     Route::get('users/create', 'create')->name('users.create');
@@ -74,7 +74,7 @@ Route::controller(UserController::class)->group(function(){
     Route::get('users/edit/{user}', 'edit')->name('users.edit');
     Route::put('users/edit/{user}', 'update')->name('users.update');
     Route::delete('users/destroy/{user}', 'destroy')->name('users.destroy');
-})->middleware('auth');
+})->middleware(['auth', 'role:Admin']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
