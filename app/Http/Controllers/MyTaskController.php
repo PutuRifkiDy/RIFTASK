@@ -26,6 +26,12 @@ class MyTaskController extends Controller
                         ->orWhere('created_at', 'REGEXP', $value);
                 });
             })
+            ->when(request()->field && request()->direction, function($query, $value){
+                return $query->join('cards', 'members.memberable_id', '=', 'cards.id')
+                    ->orderBy('cards.title', request()->direction)
+                    ->orderBy('cards.status', request()->direction)
+                    ->orderBy('cards.created_at', request()->direction);
+            })
             ->paginate(request()->load ?? 10);
 
         return inertia(component: 'Task/Index', props: [
