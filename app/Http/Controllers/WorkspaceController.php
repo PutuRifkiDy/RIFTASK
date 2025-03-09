@@ -52,7 +52,7 @@ class WorkspaceController extends Controller
     public function show(Workspace $workspace): Response
     {
         return inertia(component: 'Workspaces/Show', props: [
-            'cards' => fn()=> CardResource::collection($workspace->load([
+            'cards'         => fn()         => CardResource::collection($workspace->load([
                 'cards' => fn($q) => $q->withCount(['tasks', 'members', 'attachments'])->with([
                     'attachments',
                     'members',

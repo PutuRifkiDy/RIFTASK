@@ -55,7 +55,7 @@ export default function SidebarResponsive({ auth, url, workspaces }) {
                             </li>
                             <li>
                                 <Link
-                                    href="#"
+                                    href={route('mytasks.index')}
                                     className={cn(
                                         url.startsWith('/my-tasks')
                                             ? 'bg-indigo-600 text-white'
@@ -102,7 +102,7 @@ export default function SidebarResponsive({ auth, url, workspaces }) {
                                         href={route('workspaces.show', [workspace.memberable.slug])}
                                         className={cn(
                                             route().current('workspaces.show', [workspace.memberable.slug])
-                                                ? 'bg-indigo-600'
+                                                ? 'bg-indigo-600 text-white'
                                                 : 'text-foreground hover:bg-gray-100',
                                             'group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-relaxed tracking-tighter',
                                         )}
@@ -117,7 +117,7 @@ export default function SidebarResponsive({ auth, url, workspaces }) {
                                         >
                                             {workspace.memberable.name.charAt(0).toUpperCase()}
                                         </span>
-                                        <span className="truncate">{workspace.memberable.name}</span>
+                                        <span className="truncate tracking-[0.025em]">{workspace.memberable.name}</span>
                                     </Link>
                                 </li>
                             ))}

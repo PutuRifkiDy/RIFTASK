@@ -1,6 +1,6 @@
 import { ActionDialog } from '@/Components/ActionDialog';
 import GetPriorityBadge from '@/Components/GetPriorityBadge';
-import { Card, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -11,13 +11,16 @@ import {
 import AppLayout from '@/Layouts/AppLayout';
 import { flashMessage } from '@/lib/utils';
 import { Link, router } from '@inertiajs/react';
-import { PiDotsThreeOutlineFill, PiPlus } from 'react-icons/pi';
+import { PiCheckSquare, PiDotsThreeOutlineFill, PiLinkSimple, PiPlus, PiUser } from 'react-icons/pi';
 import { toast } from 'sonner';
 
 export default function Show({ ...props }) {
     const workspace = props.workspace;
     const statuses = props.statuses;
     const cards = props.cards;
+
+    console.log('cek isi', cards);
+
     return (
         <>
             <div>
@@ -144,6 +147,73 @@ export default function Show({ ...props }) {
                                                     {card.description}
                                                 </CardDescription>
                                             </CardHeader>
+                                            <CardContent>
+                                                <div className="flex flex-col space-y-8">
+                                                    {card.has_task && (
+                                                        <div>
+                                                            <div className="5 mb-1 flex items-center justify-between">
+                                                                <p className="text-sm leading-relaxed tracking-tighter text-muted-foreground">
+                                                                    <span className="font-medium text-red-500">
+                                                                        {card.percentage == 0
+                                                                            ? '0'
+                                                                            : card.percentage}{' '}
+                                                                    </span>
+                                                                    of 100%
+                                                                </p>
+                                                                <p className="text-sm leading-relaxed tracking-tighter text-muted-foreground">
+                                                                    {card.deadline > 0 ? (
+                                                                        <span>{card.deadline} days left</span>
+                                                                    ) : card.dedline == 0 ? (
+                                                                        <span className="text-yellow-500">
+                                                                            Today is deadline
+                                                                        </span>
+                                                                    ) : (
+                                                                        <span className="text-red-500">Overdue</span>
+                                                                    )}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    )}
+
+                                                    {!card.has_attachments && !card.has_task && !card.members_count && (
+                                                        <p className="text-sm leading-relaxed tracking-tighter text-yellow-500">
+                                                            There is no task, attachments, and members in this card
+                                                        </p>
+                                                    )}
+
+                                                    <div className="flex flex-wrap justify-between gap-4">
+                                                        {card.has_task && (
+                                                            <div className="flex items-center gap-x-1">
+                                                                <PiCheckSquare className="h-4 w-4 text-muted-foreground" />
+                                                                <span className="text-sm leading-relaxed tracking-tighter text-muted-foreground">
+                                                                    {card.tasks_count == 0 ? '0' : card.tasks_count}{' '}
+                                                                    Tasks
+                                                                </span>
+                                                            </div>
+                                                        )}
+                                                        {card.members_count > 0 && (
+                                                            <div className="flex items-center gap-x-1">
+                                                                <PiUser className="h-4 w-4 text-muted-foreground" />
+                                                                <span className="text-sm leading-relaxed tracking-tighter text-muted-foreground">
+                                                                    {card.members_count == 0 ? ' ' : card.members_count}{' '}
+                                                                    Members
+                                                                </span>
+                                                            </div>
+                                                        )}
+                                                        {card.has_attachments && (
+                                                            <div className="flex items-center gap-x-1">
+                                                                <PiLinkSimple className="h-4 w-4 text-muted-foreground" />
+                                                                <span className="text-sm leading-relaxed tracking-tighter text-muted-foreground">
+                                                                    {card.attachments_count == 0
+                                                                        ? ' '
+                                                                        : card.attachments_count}{' '}
+                                                                    Attachments
+                                                                </span>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </CardContent>
                                         </Card>
                                     ))}
                             </div>
