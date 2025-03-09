@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\CardStatus;
+use App\Http\Resources\MyTaskResource;
 use App\Models\Card;
 use App\Models\Member;
 use App\Models\User;
@@ -14,11 +15,24 @@ class DashboardController extends Controller
 {
     public function index(): Response
     {
+        $tasks = Member::query()
+            ->where('members.user_id', request()->user()->id)
+            ->whereHasMorph(
+                'memberable',
+                Card::class,
+                fn($query) => $query->where('status', CardStatus::TODO->value),
+            )
+            ->latest()
+            ->limit(10)
+            ->get();
+
+
         return inertia('Dashboard', props: [
             'page_settings'      => [
                 'title'    => 'Dashboard',
                 'subtitle' => 'Welcome to your dashboard',
             ],
+            'tasks'              => MyTaskResource::collection($tasks),
             'productivity_chart' => $this->productivityChart(),
             'count'              => [
                 'users'      => fn()      => User::count(),
