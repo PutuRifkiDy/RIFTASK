@@ -3,17 +3,36 @@ import Header from '@/Components/Header';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent, CardFooter } from '@/Components/ui/card';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem } from '@/Components/ui/dropdown-menu';
+import { Input } from '@/Components/ui/input';
+import { useFilter } from '@/Hooks/UseFilter';
 import AppLayout from '@/Layouts/AppLayout';
 import { Link } from '@inertiajs/react';
 import { DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu';
+import { useState } from 'react';
 import { PiArrowLeft, PiArrowRight, PiArrowsDownUp, PiDotsThreeOutlineVerticalFill } from 'react-icons/pi';
 
 export default function Index({ page_settings, ...props }) {
     const { data: tasks, meta, links } = props.tasks;
+    const [ params, setParams ] = useState(props.state);
+
+    useFilter({
+        route: route('mytasks.index'),
+        values: params,
+        only: ['tasks'],
+    });
 
     return (
         <>
             <Header title={page_settings.title} subtitle={page_settings.subtitle} />
+            <div className="flex flex-col justify-between my-4 space-y-4 sm:flex-row sm:space-x-4 sm:space-y-8">
+                <div className="flex flex-col w-full gap-4 sm:flex-row">
+                    <Input
+                        className='w-full sm:w-1/4'
+                        placeholder="Search"
+                        value={params?.search}
+                        onChange={(e) => setParams((prev) => ({ ...prev, search: e.target.value }))} />
+                </div>
+            </div>
             <Card>
                 <CardContent>
                     <div className="my-8 flow-root">
