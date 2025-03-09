@@ -17,7 +17,7 @@ class UserController extends Controller
     public function index(): Response
     {
         $users = User::query()
-            ->select(['id', 'name', 'email', 'avatar', 'created_at'])
+            ->select(['id', 'name', 'email', 'username', 'avatar', 'created_at'])
             ->when(request()->search, function ($query, $value) {
                 $query->whereAny([
                     'name',
@@ -69,6 +69,44 @@ class UserController extends Controller
         ]);
 
         flashMessage('User created successfully');
+
+        return to_route('users.index');
+    }
+
+    public function edit(User $user): Response
+    {
+        return inertia(component: 'Users/Edit', props: [
+            'page_settings' => [
+                'title'    => 'Edit User',
+                'subtitle' => 'Fill out this form to edit this user',
+                'method'   => 'PUT',
+                'action'   => route('users.update', $user),
+            ],
+            'user' => new UserResource($user),
+        ]);
+    }
+
+    public function update(User $user, UserRequest $request): RedirectResponse
+    {
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'username' => $request->username,
+            'password' => $request->password ? Hash::make($request->password) : $user->password,
+            'avatar'      => $request->hasFile('avatar') ? $this->upload_file($request, 'avatar', 'users/avatar') : $user->avatar,
+        ]);
+
+        flashMessage('User updated successfully');
+
+        return to_route('users.index');
+    }
+
+    public function destroy(User $user): RedirectResponse
+    {
+        $this->delete_file($user, 'avatar');
+        $user->delete();
+
+        flashMessage('User deleted successfully');
 
         return to_route('users.index');
     }

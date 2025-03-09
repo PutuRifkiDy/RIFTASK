@@ -22,14 +22,24 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'min:3', 'max:255', 'alpha_dash', Rule::unique('users')->ignore($this->user)],
-            'email' => ['required', 'min:3', 'max:255', 'email', Rule::unique('users')->ignore($this->user)],
-            'password' => Rule::when($this->routeIs('users.store'), ['required', 'min:8', 'max:255', 'confirmed']),
-            Rule::when($this->routeIs('users.update'), ['nullable', 'min:8', 'max:255', 'confirmed']),
-            'avatar' => ['nullable', 'mimes:png,jpg', 'max:2048'],
+            'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($this->user)],
+            'avatar' => ['nullable', 'mimes:png,jpg,jpeg', 'max:2048'],
         ];
+
+        // Validasi password khusus saat membuat user baru
+        if ($this->routeIs('users.store')) {
+            $rules['password'] = ['required', 'min:8', 'max:255', 'confirmed'];
+        }
+
+        // Validasi password saat update (opsional, hanya diubah jika diisi)
+        if ($this->routeIs('users.update')) {
+            $rules['password'] = ['nullable', 'min:8', 'max:255', 'confirmed'];
+        }
+
+        return $rules;
     }
 
     public function attributes(): array

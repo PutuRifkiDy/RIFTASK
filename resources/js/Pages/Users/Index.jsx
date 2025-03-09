@@ -8,7 +8,8 @@ import { Input } from '@/Components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 import { useFilter } from '@/Hooks/UseFilter';
 import AppLayout from '@/Layouts/AppLayout';
-import { Link } from '@inertiajs/react';
+import { flashMessage } from '@/lib/utils';
+import { Link, router } from '@inertiajs/react';
 import { DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu';
 import { useState } from 'react';
 import {
@@ -21,6 +22,7 @@ import {
     PiPlusCircle,
     PiTrashBold,
 } from 'react-icons/pi';
+import { toast } from 'sonner';
 
 export default function Index({ page_settings, ...props }) {
     const { data: users, meta, links } = props.users;
@@ -195,7 +197,7 @@ export default function Index({ page_settings, ...props }) {
                                                                 <DropdownMenuItem asChild>
                                                                     <Link href={route('users.edit', [user])}>
                                                                         <PiPaperPlane className="W-4 h-4 text-indigo-600" />
-                                                                        Detail
+                                                                        Edit
                                                                     </Link>
                                                                 </DropdownMenuItem>
                                                                 <DropdownMenuGroup>
@@ -210,7 +212,17 @@ export default function Index({ page_settings, ...props }) {
                                                                         }
                                                                         title="Delete People"
                                                                         description="Are you sure you want to delete this user?"
-                                                                        action={() => console.log('delete pople')}
+                                                                        action={() =>
+                                                                            router.delete(route('users.destroy', [user]), {
+                                                                                preserveScroll: true,
+                                                                                preserveState: true,
+                                                                                onSuccess: (success) => {
+                                                                                    const flash = flashMessage(success);
+                                                                                    if (flash)
+                                                                                        toast[flash.type](flash.message);
+                                                                                },
+                                                                            })
+                                                                        }
                                                                     />
                                                                 </DropdownMenuGroup>
                                                             </DropdownMenuContent>
