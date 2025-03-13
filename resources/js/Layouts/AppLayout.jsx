@@ -79,7 +79,7 @@ export default function AppLayout({ children, title }) {
                                 href="/"
                                 className="-m-1.5 p-1.5 text-2xl font-black leading-relaxed tracking-tighter"
                             >
-                                RifTasks<span className="text-red-500">.</span>
+                                RifTasks<span className="text-indigo-500">.</span>
                             </Link>
                         </div>
                         {/* Sidebar */}

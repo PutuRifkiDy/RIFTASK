@@ -51,7 +51,7 @@ export default function Welcome() {
                             }}
                         />
                     </div>
-                    <div className="py-24 flex flex-col md:flex-row justify-between">
+                    <div className="py-24 flex flex-col-reverse md:flex-row justify-between">
                         <div className="px-6 lg:px-8 flex flex-col justify-center">
                             <div className="mx-auto max-w-2xl text-center">
                                 <h1 className="text-start text-4xl max-w-lg font-bold leading-relaxed tracking-tight text-foreground sm:text-6xl">
@@ -79,7 +79,6 @@ export default function Welcome() {
                                 <img src="assets/rifki.png" alt="Foto Profil" />
                             </div>
 
-                            {/* Label Teknologi dengan Ikon */}
                             {[
                                 { src: "https://cdn.simpleicons.org/nextdotjs/black", text: "NextJS" },
                                 { src: "https://cdn.simpleicons.org/tailwindcss/38BDF8", text: "Tailwind CSS" },

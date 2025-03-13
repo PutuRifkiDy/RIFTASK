@@ -33,7 +33,7 @@ export default function Register() {
                 <Card>
                     <CardHeader className="flex flex-col items-center justify-center">
                         <Link href="/" className="text-4xl font-black leading-relaxed tracking-tighter">
-                            RifsTasks<span className="text-red-500">.</span>
+                            RifsTasks<span className="text-indigo-500">.</span>
                         </Link>
                         <h2 className="text-left text-lg font-medium leading-9 tracking-tight text-muted-foreground">
                             Create your account
